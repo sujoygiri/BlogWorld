@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-8 col-md-6 col-lg-4 col-xl-4">
+            <form class="mt-4" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                <div class="alert alert-danger text-center" *ngIf="isErrorOccurred">
+                    <span>{{errorMessage}}</span>
+                </div>
+                <div class="mb-3">
+                    <label for="user-name" class="form-label">User name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="user-name" formControlName="userName">
+                    <div class="mt-1"
+                        *ngIf="registrationForm.controls?.['userName']?.touched && registrationForm.controls?.['userName']?.invalid">
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['userName']?.errors?.['required']">This field is
+                            required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['userName']?.errors?.['minlength']">User name must be 3
+                            or more letter long
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['userName']?.errors?.['maxlength']">User name must be 30
+                            or less letter long
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="!registrationForm.controls?.['userName']?.errors?.['minlength'] && registrationForm.controls?.['userName']?.errors?.['pattern']">Invalid
+                            user name
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" formControlName="email">
+                    <div class="mt-1"
+                        *ngIf="registrationForm.controls?.['email']?.touched && registrationForm.controls?.['email']?.invalid">
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['email']?.errors?.['required']">This field is
+                            required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['email']?.errors?.['pattern']">Invalid email address
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                    <div class="mt-1"
+                        *ngIf="registrationForm.controls?.['password']?.touched && registrationForm.controls?.['password']?.invalid">
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['password']?.errors?.['required']">This field is
+                            required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="registrationForm.controls?.['password']?.errors?.['pattern']">Invalid password
+                        </span>
+                    </div>
+                </div>
+                <div class="d-grid" *ngIf="!showSpinner">
+                    <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Create Account</button>
+                </div>
+                <div class="text-center" *ngIf="showSpinner">
+                    <span class="spinner-border text-primary spinner-border-sm"></span>
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <span>Already have an account? </span><a routerLink="/login">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
